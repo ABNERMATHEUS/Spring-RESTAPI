@@ -6,13 +6,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 
 
 @Entity
 public class Cliente {
 
-	
+	////////@NotNull(groups = ValidationGroups.ClienteId.class) -- quando eu tinha criado para validation groups, mas como eu já estou usando o map mapper então não preciso
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
