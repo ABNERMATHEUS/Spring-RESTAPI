@@ -20,6 +20,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.groups.ConvertGroup;
 import javax.validation.groups.Default;
 
+import com.abner.spring01.domain.exception.RegraException;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -124,6 +125,26 @@ public class OrdemServico {
 	}
 	public void setDataFinalizacao(OffsetDateTime dataFinalizacao) {
 		this.dataFinalizacao = dataFinalizacao;
+	}
+	
+	public boolean podeSerFinalizada() {
+		return StatusOrdemServico.ABERTA.equals(this.getStatus());
+	}
+	
+	public boolean naoPodeSerFinalizada() {
+		return !podeSerFinalizada();
+	}
+	
+	public void finalizar() {
+		if(naoPodeSerFinalizada()) {
+			throw new RegraException("Ordem de serviço não pode ser finalizada");
+		}else {
+			this.setStatus(StatusOrdemServico.FINALIZADA);
+			this.setDataFinalizacao(OffsetDateTime.now());
+		}
+		
+		
+		
 	}
 
 }
