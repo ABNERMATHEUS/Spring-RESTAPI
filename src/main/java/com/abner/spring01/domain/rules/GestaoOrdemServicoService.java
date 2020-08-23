@@ -1,7 +1,7 @@
 package com.abner.spring01.domain.rules;
 
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,6 +64,25 @@ public class GestaoOrdemServicoService {
 				
 	}
 	
+	public void Deletar(Cliente cliente) {
+		
+		List <OrdemServico> listaOrdens = this.Listar(cliente);
+		for(OrdemServico ordens: listaOrdens) {
+			
+			for(Comentario comentario: ordens.getComentarios()) {
+				comentarioRepository.deleteById(comentario.getId());
+			}
+			
+			ordemServicoRepository.deleteById(ordens.getId());
+		}
+		
+	}
+	
+	
+	public List<OrdemServico> Listar(Cliente cliente){
+		return ordemServicoRepository.findByCliente(cliente);
+		
+	}
 	
 
 }

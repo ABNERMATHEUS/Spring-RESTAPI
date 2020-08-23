@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.abner.spring01.domain.exception.RegraException;
 import com.abner.spring01.domain.model.Cliente;
 import com.abner.spring01.domain.repository.ClienteRepository;
+import com.abner.spring01.domain.rules.GestaoOrdemServicoService;
 import com.abner.spring01.domain.rules.RegraCliente;
+
 
 @RestController
 @RequestMapping("/clientes")
@@ -35,6 +37,9 @@ public class ClienteController {
 	
 	@Autowired
 	private RegraCliente regraCliente;
+	
+	@Autowired 
+	private GestaoOrdemServicoService gestaoOrdemServicoService;
 	
 	
 	
@@ -98,12 +103,18 @@ public class ClienteController {
 		
 	}
 	
-	@DeleteMapping("/{clienteId}")
+	@DeleteMapping("/{clienteId}") 
 	public ResponseEntity<Void> remover(@PathVariable Long clienteId){
 		if(!clienterepository.existsById(clienteId)) {
 			return 	ResponseEntity.notFound().build();
 		}else {
-			regraCliente.Excluir(clienteId);
+			
+            Optional<Cliente> cliente = clienterepository.findById(clienteId);
+			
+			gestaoOrdemServicoService.Deletar(cliente.get());
+			
+			clienterepository.deleteById(clienteId);
+			
 			return ResponseEntity.noContent().build();
 		}
 	}

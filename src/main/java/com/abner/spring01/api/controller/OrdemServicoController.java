@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.abner.spring01.api.model.OrdemServicoInput;
 import com.abner.spring01.api.model.OrdemServicoRepresetationModel;
 import com.abner.spring01.domain.model.OrdemServico;
-import com.abner.spring01.domain.repository.ClienteRepository;
 import com.abner.spring01.domain.repository.OrdemServicoRepository;
 import com.abner.spring01.domain.rules.GestaoOrdemServicoService;
 

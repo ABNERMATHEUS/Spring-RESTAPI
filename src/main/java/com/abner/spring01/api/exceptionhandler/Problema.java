@@ -1,6 +1,5 @@
 package com.abner.spring01.api.exceptionhandler;
 
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.List;
 

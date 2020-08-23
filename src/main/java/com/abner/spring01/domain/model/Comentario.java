@@ -8,8 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import com.abner.spring01.domain.model.OrdemServico;
-
 @Entity
 public class Comentario {
 	
